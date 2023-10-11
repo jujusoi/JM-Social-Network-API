@@ -1,0 +1,22 @@
+{
+    "name": "JM-Social-Network_API",
+    "version": "1.0.1",
+    "description": "Mongoose back-end project - Develop",
+    "main": "server.js",
+    "license": "MIT",
+    "scripts": {
+      "start": "node server",
+      "dev": "nodemon server",
+      "seed": "node seed/seeds",
+      "heroku-postbuild": "node seed/seeds.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "mongoose": "^7.0.2",
+      "dotenv": "^8.2.0"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.9"
+    }
+  }
+  
