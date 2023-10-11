@@ -35,7 +35,15 @@ userSchema.virtual('friendCount').get(function () {
         return 'No friends!';
     } else {
         return this.friends.length;
-    }
+    };
+});
+
+userSchema.virtual('thoughtCount').get(function () {
+    if (this.thoughts.length === 0) {
+        return 'User has no thoughts. Head empty';
+    } else {
+        return this.thoughts.length;
+    };
 });
 
 const User = model('user', userSchema);

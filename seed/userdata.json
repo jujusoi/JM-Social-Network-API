@@ -2,9 +2,11 @@
     {
         "username": "level50gyatt",
         "email": "iloveamongus50@gmail.com"
+
     },
     {
         "username": "sussybaka",
-        "email": "ilovegyatt@hotmail.com"
+        "email": "ilovegyatt@hotmail.com",
+        "friends": ["6526306c0fbfa326d782026a"]
     }
 ]
