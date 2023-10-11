@@ -49,9 +49,7 @@ user
 .delete('/:userId', async (req, res) => {
     try {
         const userData = await User.findOne({ _id: req.params.userId });
-        const deleteData = await User.deleteOne(
-            { _id: req.params.userId },
-        );
+        const deleteData = await User.deleteOne({ _id: req.params.userId });
         if (!deleteData) {
             return res.status(404).json(`UserId not found`);
         };

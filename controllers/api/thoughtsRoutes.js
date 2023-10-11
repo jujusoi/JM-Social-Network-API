@@ -1,5 +1,5 @@
 const thoughts = require('express').Router();
-const { Thought } = require('../../models');
+const { Thought, Reaction } = require('../../models');
 
 thoughts
 .get('/', async (req, res) => {
@@ -47,12 +47,16 @@ thoughts
 })
 .delete('/:thoughtId', async (req, res) => {
     try {
+        const thoughtData = await Thought.findOne({ _id: req.params.thoughtId });
         const deleteData = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-        if (deleteData) {
-            res.status(200).json(`Thought deleted`);
-        } else {
-            res.status(404).json(`ThoughtId not found`);
+        if (!deleteData) {
+            return res.status(404).json(`ThoughtId not found`);
         };
+        const deleteReactions = await Reaction.deleteMany({ username: thoughtData.username });
+        if (!deleteReactions) {
+            return res.status(404).json(`Deleted thought but reactions not found`);
+        };
+        res.status(200).json(`Thought deleted`);  
     } catch (err) {
         res.status(500).json(err);
     };
