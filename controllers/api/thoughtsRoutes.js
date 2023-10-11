@@ -28,6 +28,34 @@ thoughts
     } catch (err) {
         res.status(500).json(err);
     }
+})
+.put('/:thoughtId', async (req, res) => {
+    try {
+        const thoughtData = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: req.body },
+            { runValidators: true, new: true }
+        );
+        if (thoughtData) {
+            res.status(200).json(thoughtData);
+        } else {
+            res.status(404).json(`ThoughtId not found`);
+        };
+    } catch (err) {
+        res.status(500).json(err);
+    };
+})
+.delete('/:thoughtId', async (req, res) => {
+    try {
+        const deleteData = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+        if (deleteData) {
+            res.status(200).json(`Thought deleted`);
+        } else {
+            res.status(404).json(`ThoughtId not found`);
+        };
+    } catch (err) {
+        res.status(500).json(err);
+    };
 });
 
 module.exports = thoughts;
