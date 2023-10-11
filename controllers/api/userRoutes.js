@@ -1,5 +1,5 @@
 const user = require('express').Router();
-const { User, Thought } = require('../../models');
+const { User, Thought, Reaction } = require('../../models');
 
 user
 .get('/', async (req, res) => {
@@ -48,11 +48,20 @@ user
 })
 .delete('/:userId', async (req, res) => {
     try {
+        const userData = await User.findOne({ _id: req.params.userId });
         const deleteData = await User.deleteOne(
             { _id: req.params.userId },
         );
         if (!deleteData) {
             return res.status(404).json(`UserId not found`);
+        };
+        const deleteThoughts = await Thought.deleteMany({ username: userData.username });
+        if (!deleteThoughts) {
+            return res.status(404).json(`Deleted user but thoughts not found`);
+        };
+        const deleteReactions = await Reaction.deleteMany({ username: userData.username });
+        if (!deleteReactions) {
+            return res.status(404).json(`Deleted user and thoughts but reactions not found`);
         };
         res.status(200).json(`User deleted`);
     } catch (err) {
