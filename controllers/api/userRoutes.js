@@ -45,7 +45,8 @@ user
     } catch (err) {
         res.status(500).json(err);
     };
-}).delete('/:userId', async (req, res) => {
+})
+.delete('/:userId', async (req, res) => {
     try {
         const deleteData = await User.deleteOne(
             { _id: req.params.userId },

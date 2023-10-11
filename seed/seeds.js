@@ -1,7 +1,8 @@
 const connection = require('../config/connection');
-const { User, Thought } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 const userdata = require('./userdata.json');
 const thoughtsdata = require('./thoughtsdata.json');
+const reactiondata = require('./reactiondata.json');
 
 connection.on('error', (err) => err);
 
@@ -12,8 +13,10 @@ connection.once('open', async() => {
         if (userCollection && thoughtCollection) {
             await connection.dropCollection('users');
             await connection.dropCollection('thoughts');
+            await connection.dropCollection('reactions');
         };
         await User.insertMany(userdata);
+        await Reaction.insertMany(reactiondata);
         await Thought.insertMany(thoughtsdata);
         console.log('seeded');
         process.exit(0);
