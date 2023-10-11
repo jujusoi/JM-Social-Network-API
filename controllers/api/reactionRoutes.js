@@ -1,5 +1,6 @@
 const reaction = require('express').Router();
 const { Reaction } = require('../../models');
+
 reaction.get('/', async (req, res) => {
     try {
         const reactionData = await Reaction.find().select('-__v');
@@ -11,8 +12,26 @@ reaction.get('/', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-}).post('/', (req, res) => {
-    res.status(200).json(`Post works`);
+})
+.post('/', async (req, res) => {
+    try {
+        const reactionData = await Reaction.create(req.body);
+        res.status(200).json(reactionData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+.delete('/:reactionId', async (req, res) => {
+    try {
+        const reactionData = await Reaction.findOneAndDelete({ _id: req.params.reactionId });
+        if (reactionData) {
+            res.status(200).json(`Reaction deleted`);
+        } else {
+            res.status(404).json(`ReactionId not found`);
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    };
 });
 
 module.exports = reaction;
