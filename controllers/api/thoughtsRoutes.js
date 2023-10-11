@@ -1,6 +1,5 @@
 const thoughts = require('express').Router();
 const { Thought, Reaction } = require('../../models');
-
 thoughts
 .get('/', async (req, res) => {
     try {

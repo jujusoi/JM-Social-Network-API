@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const formatDate = require('../config/middleware/changedate');
 
 const reactionSchema = new Schema({
     username: {
@@ -12,8 +13,10 @@ const reactionSchema = new Schema({
         maxlength: 1000,
     },
     createdAt: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        default: function () {
+            return formatDate(new Date());
+        },
     },
 },
 {
