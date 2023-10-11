@@ -16,7 +16,7 @@ user
 })
 .get('/:userId', async (req, res) => {
     try {
-        const userData = await User.findOne({ _id: req.params.userId}).populate('thoughts', '-__v').populate('friends').select('-__v');
+        const userData = await User.findOne({ _id: req.params.userId }).populate('thoughts', '-__v').populate('friends').select('-__v');
         if (userData) {
             res.status(200).json(userData);
         } else {
@@ -58,9 +58,33 @@ user
         res.status(500).json(err);
     };
 })
-.get('/:userId/friends', async (req, res) => {
+.post('/:userId/friends/:friendId', async (req, res) => {
     try {
-        res.status(200).json(`friend works`);
+        const friendData = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $push: { friends: req.params.friendId } },
+            { runValidators: true, new: true }
+        );
+        if (friendData) {
+            res.status(200).json(`Successfully added friend`);
+        } else {
+            res.status(404).json(`FriendId or UserId not found`);
+        };
+    } catch (err) {
+        res.status(500).json(err);
+    };
+}).delete('/:userId/friends/:friendId', async (req, res) => {
+    try {
+        const friendData = await User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { runValidators: true, new: true },
+        );
+        if (friendData) {
+            res.status(200).json(`Successfully removed friend`);
+        } else {
+            res.status(404).json(`FriendId or UserId not found`);
+        };
     } catch (err) {
         res.status(500).json(err);
     };
