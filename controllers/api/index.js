@@ -9,4 +9,8 @@ router.get('/', (req, res) => {
     res.status(200).json(`Post works`);
 });
 
+router.use('/reactions', reaction);
+router.use('/thoughts', thoughts);
+router.use('/users', user);
+
 module.exports = router;
