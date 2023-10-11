@@ -14,6 +14,18 @@ user
         res.status(500).json(err);
     };
 })
+.get('/:userId', async (req, res) => {
+    try {
+        const userData = await User.findOne({ _id: req.params.userId}).populate('thoughts', '-__v').populate('friends').select('-__v');
+        if (userData) {
+            res.status(200).json(userData);
+        } else {
+            res.status(404).json(`UserId not found`);
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    };
+})
 .post('/', async (req, res) => {
     try {
         const userData = await User.create(req.body);
