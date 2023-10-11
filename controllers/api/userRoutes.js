@@ -73,8 +73,13 @@ user
             { $push: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         );
-        if (friendData) {
-            res.status(200).json(`Successfully added friend`);
+        const newFriendData = await User.findOneAndUpdate(
+            { _id: req.params.friendId },
+            { $push: { friends: req.params.userId } },
+            { runValidators: true, new: true },
+        );
+        if (friendData && newFriendData) {
+            res.status(200).json(`Successfully added friends`);
         } else {
             res.status(404).json(`FriendId or UserId not found`);
         };
@@ -88,8 +93,13 @@ user
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true },
         );
-        if (friendData) {
-            res.status(200).json(`Successfully removed friend`);
+        const newFriendData = await User.findOneAndUpdate(
+            { _id: req.params.friendId },
+            { $pull: { friends: req.params.userId } },
+            { runValidators: true, new: true },
+        );
+        if (friendData && newFriendData) {
+            res.status(200).json(`Successfully removed friends`);
         } else {
             res.status(404).json(`FriendId or UserId not found`);
         };
