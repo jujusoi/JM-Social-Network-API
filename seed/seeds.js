@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
 const { User } = require('../models');
-const userdata = require('./data.json');
+const userdata = require('./userdata.json');
 
 connection.on('error', (err) => err);
 

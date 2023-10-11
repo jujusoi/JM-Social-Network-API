@@ -30,6 +30,14 @@ const userSchema = new Schema({
     }
 );
 
+userSchema.virtual('friendCount').get(function () {
+    if (this.friends.length === 0) {
+        return 'No friends!';
+    } else {
+        return this.friends.length;
+    }
+});
+
 const User = model('user', userSchema);
 
 module.exports = User;
