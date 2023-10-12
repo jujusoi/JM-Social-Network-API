@@ -4,10 +4,19 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: true,
+        unique: true,
+        trim: true,
     },
     email: {
         type: String,
         required: true,
+        unique: true,
+        validate: {
+            validator: function (input) { 
+                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(input);
+            },
+            message: 'Please enter a valid email address',
+        },
     },
     thoughts: [
         {
