@@ -5,7 +5,10 @@
     },
     {
         "username": "sussybaka",
-        "email": "ilovegyatt@hotmail.com",
-        "friends": ["6526306c0fbfa326d782026a"]
+        "email": "ilovegyatt@hotmail.com"
+    },
+    {
+        "username": "rizzinohio",
+        "email": "testemail@gmail.com"
     }
 ]
