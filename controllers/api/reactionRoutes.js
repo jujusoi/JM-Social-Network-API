@@ -10,7 +10,7 @@ reaction.get('/', async (req, res) => {
             res.status(404).json(`No reactions found`);
         };
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     }
 })
 .get('/:reactionId', async (req, res) => {
@@ -22,7 +22,7 @@ reaction.get('/', async (req, res) => {
             res.status(404).json(`ReactionId not found`);
         };
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     };
 })
 .post('/', async (req, res) => {
@@ -30,7 +30,7 @@ reaction.get('/', async (req, res) => {
         const reactionData = await Reaction.create(req.body);
         res.status(200).json(reactionData);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     }
 })
 .delete('/:reactionId', async (req, res) => {
@@ -42,7 +42,7 @@ reaction.get('/', async (req, res) => {
             res.status(404).json(`ReactionId not found`);
         }
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     };
 });
 

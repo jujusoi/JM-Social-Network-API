@@ -7,7 +7,7 @@ thoughts
         const thoughtData = await Thought.find().populate('reactions', '-__v').select('-__v');
         res.status(200).json(thoughtData);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     }
 }).get('/:thoughtId', async (req, res) => {
     try {
@@ -18,7 +18,7 @@ thoughts
             res.status(404).json(`ThoughtId not found`);
         };
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     };
 })
 .post('/', async (req, res) => {
@@ -26,7 +26,7 @@ thoughts
         const newThought = await Thought.create(req.body);
         res.status(200).json(newThought);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     }
 })
 .put('/:thoughtId', async (req, res) => {
@@ -42,7 +42,7 @@ thoughts
             res.status(404).json(`ThoughtId not found`);
         };
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     };
 })
 .delete('/:thoughtId', async (req, res) => {
@@ -58,7 +58,7 @@ thoughts
         };
         res.status(200).json(`Thought deleted`);  
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: `Request failed: ${err}` });
     };
 });
 
